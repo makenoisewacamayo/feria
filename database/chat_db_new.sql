@@ -7,6 +7,12 @@
 -- Server version: 5.6.47-cll-lve
 -- PHP Version: 7.2.7
 
+
+CREATE DATABASE IF NOT EXISTS chat_db_new;
+
+USE chat_db_new;
+
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -28,7 +34,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `list_master`
 --
 
-CREATE TABLE `list_master` (
+CREATE TABLE IF NOT EXISTS `list_master` (
   `id` int(11) NOT NULL,
   `customer_id` varchar(255) NOT NULL,
   `list_name` varchar(255) NOT NULL,
@@ -41,7 +47,7 @@ CREATE TABLE `list_master` (
 -- Table structure for table `messages`
 --
 
-CREATE TABLE `messages` (
+CREATE TABLE IF NOT EXISTS `messages` (
   `msg_id` int(11) NOT NULL,
   `list_id` int(11) NOT NULL,
   `from_id` int(11) NOT NULL,
@@ -57,7 +63,7 @@ CREATE TABLE `messages` (
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL,
   `under_user_id` int(11) NOT NULL DEFAULT '0',
   `list_id` int(11) NOT NULL DEFAULT '0',
