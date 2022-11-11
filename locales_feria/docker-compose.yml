@@ -1,0 +1,45 @@
+# ./docker-compose.yml
+
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    platform: linux/x86_64    
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: my_secret_pw_shh
+      MYSQL_DATABASE: grobotics
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpass
+    volumes:
+      - db:/var/lib/mysql
+      - ./database/eventos.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "9907:3306"
+  web:
+    build: 
+      context: .
+      dockerfile: php_apache.DockerFile
+    image: php_web
+    depends_on:
+      - db
+    volumes:
+      - ./chat_system/:/var/www/html/
+    ports:
+      - "8101:80"
+    environment:
+        DB_HOST: db
+        DB_PORT: 9907
+        DB_USER: root
+        DB_PASS: my_secret_pw_shh
+        DB_NAME: grobotics
+    links:
+      - db
+    stdin_open: true
+    tty: true
+volumes:
+  db:
+    driver: local

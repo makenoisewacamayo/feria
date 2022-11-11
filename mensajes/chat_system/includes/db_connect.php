@@ -1,6 +1,6 @@
 <?php
 error_reporting(0);
-$conn = mysqli_connect(getenv("DB_HOST"),getenv("DB_USER"),getenv("DB_PASS"),getenv("DB_NAME"));
+$conn = mysqli_connect(getenv("DB_HOST"),getenv("DB_USER"),getenv("DB_PASS"),getenv("DB_NAME"),getenv('DB_PORT'));
 session_start();
 // Check connection
 if (mysqli_connect_errno())
