@@ -12,6 +12,11 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 
+CREATE DATABASE IF NOT EXISTS grobotics;
+
+USE grobotics;
+
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -27,7 +32,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `eventos`
 --
 
-CREATE TABLE `administradores` (
+CREATE TABLE  IF NOT EXISTS `administradores` (
   `ID` int(11) NOT NULL,
   `NOMBRE` text NOT NULL,
   `RUT` text NOT NULL,
@@ -65,7 +70,7 @@ ALTER TABLE `administradores`
 COMMIT;
 
 
-CREATE TABLE `eventos` (
+CREATE TABLE IF NOT EXISTS `eventos` (
   `ID` int(11) NOT NULL,
   `ID_ADMINISTRADOR` int(11) NOT NULL,
   `NOMBRE_EVENTO` text NOT NULL,

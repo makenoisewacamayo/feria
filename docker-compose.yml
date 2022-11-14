@@ -1,33 +1,65 @@
 # ./docker-compose.yml
+
 version: '3'
 
 services:
-  db_locales_feria:
-    extends:
-      file: ./locales_feria/docker-compose.yml
-      service: db_locales_feria
-  app_locales_feria:
-    extends:
-      file: ./locales_feria/docker-compose.yml
-      service: web_locales_feria
+  db:
+    image: mysql:5.7
+    platform: linux/x86_64
+    container_name: mysql_chat_system
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: my_secret_pw_shh
+    volumes:
+      - db:/var/lib/mysql
+      - ./databases/join_databases.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "9906:3306"
+  web_mensajes:
+    build: 
+      context: .
+      dockerfile: php_apache.DockerFile
+    image: php_web_chat_system
     depends_on:
-      - db_locales_feria
+      - db
+    volumes:
+      - .chat_system/:/var/www/html/
+    ports:
+      - "8100:80"
+    environment:
+        DB_HOST_CHAT_SYSTEM: db
+        DB_PORT_CHAT_SYSTEM: 9906
+        DB_USER_CHAT_SYSTEM: root
+        DB_PASS_CHAT_SYSTEM: my_secret_pw_shh
+        DB_NAME_CHAT_SYSTEM: chat_db_new
     links:
-      - db_locales_feria
-  db_mensajes:
-     extends:
-      file: ./mensajes/docker-compose.yml
-      service: db_mensajes
-  app_mensajes:
-    extends:
-      file: ./mensajes/docker-compose.yml
-      service: web_mensajes
+      - db
+    stdin_open: true
+    tty: true
+
+  web_locales_feria:
+    build: 
+      context: .
+      dockerfile: php_apache.DockerFile
+    image: php_web_locale_feria
     depends_on:
-      - db_mensajes
+      - db
+    volumes:
+      - ./locales_feria/:/var/www/html/
+    ports:
+      - "8101:80"
+    environment:
+        DB_HOST_LOCALES: db
+        DB_PORT_LOCALES: 9906
+        DB_USER_LOCALES: root
+        DB_PASS_LOCALES: my_secret_pw_shh
+        DB_NAME_LOCALES: grobotics
     links:
-      - db_mensajes
+      - db
+    stdin_open: true
+    tty: true
 volumes:
-  db_locales:
-    driver: local
-  db_msg:
+  db:
     driver: local
