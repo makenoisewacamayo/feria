@@ -3,7 +3,7 @@
 version: '3'
 
 services:
-  db:
+  db_locales_feria:
     image: mysql:5.7
     platform: linux/x86_64
     container_name: mysql_locales_feria
@@ -16,31 +16,31 @@ services:
       MYSQL_USER: devuser
       MYSQL_PASSWORD: devpass
     volumes:
-      - db:/var/lib/mysql
+      - db_locales:/var/lib/mysql
       - ./database/eventos.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "9907:3306"
-  web:
+  web_locales_feria:
     build: 
       context: .
       dockerfile: php_apache.DockerFile
     image: php_web_locale_feria
     depends_on:
-      - db
+      - db_locales_feria
     volumes:
       - ./locales_feria/:/var/www/html/
     ports:
       - "8101:80"
     environment:
-        DB_HOST: db
+        DB_HOST: db_locales
         DB_PORT: 9907
         DB_USER: root
         DB_PASS: my_secret_pw_shh
         DB_NAME: grobotics
     links:
-      - db
+      - db_locales_feria
     stdin_open: true
     tty: true
 volumes:
-  db:
+  db_locales:
     driver: local

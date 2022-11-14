@@ -1,0 +1,33 @@
+# ./docker-compose.yml
+version: '3'
+
+services:
+  db_locales_feria:
+    extends:
+      file: ./locales_feria/docker-compose.yml
+      service: db_locales_feria
+  app_locales_feria:
+    extends:
+      file: ./locales_feria/docker-compose.yml
+      service: web_locales_feria
+    depends_on:
+      - db_locales_feria
+    links:
+      - db_locales_feria
+  db_mensajes:
+     extends:
+      file: ./mensajes/docker-compose.yml
+      service: db_mensajes
+  app_mensajes:
+    extends:
+      file: ./mensajes/docker-compose.yml
+      service: web_mensajes
+    depends_on:
+      - db_mensajes
+    links:
+      - db_mensajes
+volumes:
+  db_locales:
+    driver: local
+  db_msg:
+    driver: local

@@ -3,7 +3,7 @@
 version: '3'
 
 services:
-  db:
+  db_mensajes:
     image: mysql:5.7
     platform: linux/x86_64
     container_name: mysql_chat_system
@@ -16,31 +16,31 @@ services:
       MYSQL_USER: devuser
       MYSQL_PASSWORD: devpass
     volumes:
-      - db:/var/lib/mysql
+      - db_msg:/var/lib/mysql
       - ./database/chat_db_new.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "9906:3306"
-  web:
+  web_mensajes:
     build: 
       context: .
       dockerfile: php_apache.DockerFile
     image: php_web_chat_system
     depends_on:
-      - db
+      - db_mensajes
     volumes:
       - ./chat_system/:/var/www/html/
     ports:
       - "8100:80"
     environment:
-        DB_HOST: db
+        DB_HOST: db_msg
         DB_PORT: 9906
         DB_USER: root
         DB_PASS: my_secret_pw_shh
         DB_NAME: chat_db_new
     links:
-      - db
+      - db_mensajes
     stdin_open: true
     tty: true
 volumes:
-  db:
+  db_msg:
     driver: local
