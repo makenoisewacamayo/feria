@@ -9,7 +9,7 @@ $port = getenv('DB_PORT_LOCALES');
  
 $connect = mysqli_connect($host, $user, $password, $database, $port);
 if (mysqli_connect_errno()) {
-    printf("Connect failed: %s\n " . mysqli_connect_error());
+    printf("Connect failed: %s\n ", mysqli_connect_error());
     exit();
 }
 //echo ("conexion ok");

@@ -6,7 +6,7 @@ services:
   db:
     image: mysql:5.7
     platform: linux/x86_64
-    container_name: mysql_chat_system
+    container_name: mysql_db
     cap_add:
       - SYS_NICE
     restart: always
@@ -21,21 +21,21 @@ services:
     build: 
       context: .
       dockerfile: php_apache.DockerFile
-    image: php_web_chat_system
+    container_name: php_web_chat_system
     depends_on:
       - db
+    links:
+      - "db:mysql_db"
     volumes:
-      - .chat_system/:/var/www/html/
+      - ./chat_system/:/var/www/html/
     ports:
       - "8100:80"
     environment:
-        DB_HOST_CHAT_SYSTEM: db
-        DB_PORT_CHAT_SYSTEM: 9906
+        DB_HOST_CHAT_SYSTEM: mysql_db
+        DB_PORT_CHAT_SYSTEM: 3306
         DB_USER_CHAT_SYSTEM: root
         DB_PASS_CHAT_SYSTEM: my_secret_pw_shh
         DB_NAME_CHAT_SYSTEM: chat_db_new
-    links:
-      - db
     stdin_open: true
     tty: true
 
@@ -43,23 +43,24 @@ services:
     build: 
       context: .
       dockerfile: php_apache.DockerFile
-    image: php_web_locale_feria
+    container_name: php_web_locale_feria
     depends_on:
       - db
+    links:
+      - "db:mysql_db"
     volumes:
       - ./locales_feria/:/var/www/html/
     ports:
       - "8101:80"
     environment:
-        DB_HOST_LOCALES: db
-        DB_PORT_LOCALES: 9906
+        DB_HOST_LOCALES: mysql_db
+        DB_PORT_LOCALES: 3306
         DB_USER_LOCALES: root
         DB_PASS_LOCALES: my_secret_pw_shh
         DB_NAME_LOCALES: grobotics
-    links:
-      - db
     stdin_open: true
     tty: true
+
 volumes:
   db:
     driver: local

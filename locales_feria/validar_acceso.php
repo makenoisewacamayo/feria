@@ -19,11 +19,11 @@ $_SESSION['password']=$_POST['password'];
 $_SESSION['logged']=true;
 
 	echo ("ADMINISTRADOR AUTORIZADO");
-	echo '<meta http-equiv="Refresh" content="1; /locales/panel_control_administradores.php">';
+	echo '<meta http-equiv="Refresh" content="1; /panel_control_administradores.php">';
 }
 
 else {
 echo "Error en alguno de los datos";
-echo '<meta http-equiv="Refresh" content="1; /locales/login.html">';
+echo '<meta http-equiv="Refresh" content="1; /index.html">';
 }
 ?>
