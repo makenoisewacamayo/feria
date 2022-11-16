@@ -12,7 +12,7 @@
                 <br />  
                 <div class="table-responsive">  
                      <h3 align="center">MI PERFIL</h3><br />  
-                     <form action="/locales/panel_control_administradores.php"><input type="submit" value="VOLVER">
+                     <form action="/panel_control_administradores.php"><input type="submit" value="VOLVER">
 
 </form>
                      <div id="live_data"></div>                 

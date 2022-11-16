@@ -3,7 +3,8 @@ include("db_connect.php");
 session_start();
 $nombre_tabla=$_SESSION["NOMBRE_TABLA"];
 
-
+var_dump($_SESSION);
+exit();
  
  $output = '';  
  $sql = "SELECT * FROM `$nombre_tabla` "; 

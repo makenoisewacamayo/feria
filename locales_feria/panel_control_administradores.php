@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("db_connect.php");
 ?>
 
@@ -9,13 +10,16 @@ include("db_connect.php");
 
 
 <?php
-session_start();
 
-if(isset( $_SESSION['logged'] ) && $_SESSION['logged']=='si'){
+
+  
+
+if(isset( $_SESSION['logged'] ) && $_SESSION['logged'] == true){
 
 
 $rut=$_SESSION["rut"];
 $sql = "SELECT * FROM `administradores` WHERE RUT = '$rut' "; 
+
 $resultado=mysqli_query($connect, $sql);
 $existe = mysqli_fetch_array($resultado);
 
@@ -28,7 +32,7 @@ $_SESSION['id_administrador']=$existe[0];
 }
 else {
 	echo("NO TIENE ACCESO A ESTA PAGINA");
-echo '<meta http-equiv="Refresh" content="1; /locales/login.html">';
+echo '<meta http-equiv="Refresh" content="1; /index.html">';
 exit();
 }
 ?>
@@ -36,14 +40,14 @@ exit();
 <br>
 
 
-<form action="/locales/administradores/perfil/index.php">
+<form action="/administradores/perfil/index.php">
 
 <input type="submit" value="MI PERFIL">
 
 </form>
 
 <br>
-<form action="/locales/administradores/eventos/index.php">
+<form action="/administradores/eventos/index.php">
 
 <input type="submit" value="MIS EVENTOS">
 

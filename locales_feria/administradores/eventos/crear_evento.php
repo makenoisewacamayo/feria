@@ -35,14 +35,14 @@ if(mysqli_query($connect, $sql_crear_tabla))
         mysqli_query($connect, $sql_crear_registros);
         
     }
-    echo '<meta http-equiv="Refresh" content="1; /locales/administradores/eventos/index.php">';
+    echo '<meta http-equiv="Refresh" content="1; /administradores/eventos/index.php">';
 }
 
 
 
 else {
 echo "Error en alguno de los datos";
-echo '<meta http-equiv="Refresh" content="1; /locales/administradores/eventos/index.php">';
+echo '<meta http-equiv="Refresh" content="1; /administradores/eventos/index.php">';
 
 }
 

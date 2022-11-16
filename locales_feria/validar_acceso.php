@@ -18,6 +18,8 @@ $_SESSION['rut']=$rut;
 $_SESSION['password']=$_POST['password'];
 $_SESSION['logged']=true;
 
+var_dump($_SESSION);
+
 	echo ("ADMINISTRADOR AUTORIZADO");
 	echo '<meta http-equiv="Refresh" content="1; /panel_control_administradores.php">';
 }

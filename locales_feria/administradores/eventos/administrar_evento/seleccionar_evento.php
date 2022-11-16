@@ -14,6 +14,6 @@ $nombre_tabla = $existe['NOMBRE_EVENTO'].$existe['LUGAR'];
 $_SESSION["NOMBRE_TABLA"]= $nombre_tabla;
 
 //echo $_SESSION["NOMBRE_TABLA"];
-echo '<meta http-equiv="Refresh" content="0; /locales/administradores/eventos/administrar_evento/seleccionar_evento.html">';
+echo '<meta http-equiv="Refresh" content="0; /administradores/eventos/administrar_evento/seleccionar_evento.html">';
 
 ?>
